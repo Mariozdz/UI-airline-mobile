@@ -4,26 +4,28 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import una.moviles.databinding.FlightListBinding
+import una.moviles.databinding.PurchaseListBinding
+import una.moviles.logic.Purchase
 import una.moviles.ui.home.HomeAdapter
 
 class PurchaseAdapter : RecyclerView.Adapter<PurchaseAdapter.ViewHolder>()
 {
-    public var items = listOf<String>()
+    public var items = listOf<Purchase>()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
 
-    public class ViewHolder(private val binding: FlightListBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: String) {
-            //binding.application = item
+    public class ViewHolder(private val binding: PurchaseListBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Purchase) {
+            binding.purchases = item
         }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = FlightListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = PurchaseListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ViewHolder(binding)
 
