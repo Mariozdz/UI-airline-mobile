@@ -3,13 +3,16 @@ package una.moviles.ui.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import org.json.JSONArray
+import org.json.JSONObject
 import una.moviles.databinding.FlightListBinding
 import una.moviles.logic.Flight
+import una.moviles.logic.Purchase
 
 class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ViewHolder>()
 {
 
-    public var items = listOf<Flight>()
+    public var items =  listOf<Flight>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -19,6 +22,7 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ViewHolder>()
     public class ViewHolder(private val binding: FlightListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Flight) {
             binding.flights = item
+
         }
 
     }

@@ -5,9 +5,14 @@ import java.io.Serializable
 class Purchase (
 
     var id: Int,
-    var flightId: Int,
-    var userId: String,
-    var totalPrice: Double,
+    var flightid: Int,
+    var totalprice: Double,
     var tickets: Int,
-    var returnId: Int
+    var returnflightid: Int,
+    var userid: String,
+    var realTickets: Int
         ) : Serializable
+
+
+
+//{"tickets":10,"returnflightid":0,"totalprice":60000,"flightid":1,"id":1,"userid":"User3","realsTickets":10}
