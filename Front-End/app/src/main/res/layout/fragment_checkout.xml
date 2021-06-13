@@ -144,7 +144,7 @@
                 android:textColor="@color/black"
 
                 android:gravity="center_horizontal"
-                android:text="@{ editform.outbounddate }" />
+                android:text="@{ editform.sdate }" />
         </LinearLayout>
 
         <LinearLayout

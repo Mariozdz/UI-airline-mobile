@@ -14,38 +14,97 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="3dp"
+        app:cardBackgroundColor="@color/white"
         app:cardElevation="3dp"
         app:cardUseCompatPadding="true"
         >
 
         <LinearLayout
-            android:layout_width="144dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/pur_user"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{purchases.userid}" />
+            <LinearLayout
+                android:layout_width="147dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/pur_vuelo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{purchases.flightid}" />
+                <TextView
+                    android:id="@+id/tit_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Purchase owner"
+                    android:textColor="@color/black" />
 
-            <TextView
-                android:id="@+id/pur_price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{purchases.totalprice}" />
+                <TextView
+                    android:id="@+id/tit_vuelo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Is selected"
+                    android:textColor="@color/black" />
 
-            <TextView
-                android:id="@+id/pur_tickets"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{purchases.tickets}" />
+                <TextView
+                    android:id="@+id/tit_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Total cost:"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tit_tickets"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Amount of ickets:"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="145dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/pur_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@{purchases.userid}"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/pur_vuelo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@{purchases.flightid}"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/pur_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@{purchases.totalprice}"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/pur_tickets"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@{purchases.tickets}"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="110dp"
+                android:layout_height="80dp"
+                app:srcCompat="@drawable/ic_shop"
+                tools:ignore="VectorDrawableCompat" />
+
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 </layout>

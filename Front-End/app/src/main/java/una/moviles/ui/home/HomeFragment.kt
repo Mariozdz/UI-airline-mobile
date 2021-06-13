@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -91,8 +92,10 @@ class HomeFragment : Fragment() {
                 var quien: String = ""
 
                 if (direction == ItemTouchHelper.LEFT) {
-                    
-                    view!!.findNavController().navigate(R.id.nav_check)
+
+
+                    val bundle = bundleOf("flight" to BD.flight.value!![viewHolder.adapterPosition] )
+                    view!!.findNavController().navigate(R.id.nav_check,bundle)
 
                 } else {
 

@@ -56,7 +56,7 @@
                     android:id="@+id/fli_precio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{flights.stime}"
+                    android:text="@{flights.price}"
                     android:textColor="@color/black" />
             </LinearLayout>
 
