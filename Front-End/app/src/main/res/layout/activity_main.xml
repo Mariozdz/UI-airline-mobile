@@ -80,7 +80,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.739"
-        app:srcCompat="@drawable/ic_silueta_de_usuario"
+        app:srcCompat="@drawable/ic_logo"
         tools:ignore="VectorDrawableCompat" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

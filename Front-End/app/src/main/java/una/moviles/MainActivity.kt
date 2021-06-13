@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import una.moviles.logic.User
+import una.moviles.persistence.BD
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,37 +24,25 @@ class MainActivity : AppCompatActivity() {
             val user_name = et_user_name.text.toString()
             val password = et_password.text.toString()
 
-            //BD.users.removeAt(2)
 
             val intent = Intent(this, MenuActivity::class.java)
 
-            var flag : Boolean = false;
-            //var us: User = User("name","1","1",0)
 
-            /*for(i in items2)
-            {
-                if (i.email == user_name  && i.password == password)
-                {
-                    flag = true
-                    us = i
-                }
-            }*/
+            var us: User? = BD.validateUser(user_name,password)
 
-           // intent.putExtra("user",us)
-            startActivity(intent)
 
-          /*  if (flag)
+
+            if (us != null)
             {
                 intent.putExtra("user",us)
                 startActivity(intent)
             } else {
                 val toast1 = Toast.makeText(applicationContext,
-                    "Datos erroneos", Toast.LENGTH_LONG)
+                        "Datos erroneos", Toast.LENGTH_LONG)
                 toast1.show()
-            }*/
+            }
 
         }
-
 
         btn_register.setOnClickListener {
 
