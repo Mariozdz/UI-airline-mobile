@@ -27,4 +27,8 @@
         android:name="una.moviles.ui.checkout.CheckoutFragment"
         android:label="fragment_checkout"
         tools:layout="@layout/fragment_checkout" />
+    <fragment
+        android:id="@+id/seatsFragment"
+        android:name="una.moviles.ui.seats.SeatsFragment"
+        android:label="SeatsFragment" />
 </navigation>

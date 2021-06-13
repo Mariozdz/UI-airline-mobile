@@ -109,9 +109,9 @@ class HomeFragment : Fragment() {
 
                 RecyclerViewSwipeDecorator.Builder(activity , c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                     .addSwipeLeftBackgroundColor(R.color.red)
-                    .addSwipeLeftActionIcon(R.drawable.ic_baseline_delete_24)
+                    .addSwipeLeftActionIcon(R.drawable.ic_baseline_edit_24)
                     .addSwipeRightBackgroundColor(R.color.green)
-                    .addSwipeRightActionIcon(R.drawable.ic_baseline_edit_24)
+                    .addSwipeRightActionIcon(R.drawable.ic_baseline_delete_24)
                     .create()
                     .decorate()
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
