@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.home.HomeFragment"
+android:layout_gravity="center_horizontal"
     android:background="@color/white" >
 
     <SearchView
@@ -13,13 +14,26 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/Basic" />
+        android:background="@color/Basic" >
+
+    </SearchView>
+
+    <TextView
+        android:id="@+id/discount_submmit"
+        android:layout_width="202dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/Basic" />
 
     <androidx.recyclerview.widget.RecyclerView
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/flight_list"
         android:id="@+id/flight_recycle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="652dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/flight_list" />
 
 </LinearLayout>

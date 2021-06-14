@@ -22,6 +22,8 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     var position: Int = 0
 
+    var discount: Boolean = false
+
     lateinit var lista: RecyclerView
     var originalList = BD.flight.value
 
@@ -123,6 +125,29 @@ class HomeFragment : Fragment() {
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(lista)
 
+
+        binding.discountSubmmit.setText("Click on me to see discounts")
+
+        binding.discountSubmmit.setOnClickListener{
+
+
+            if(!discount) {
+                BD.flight.value = originalList
+                BD.filterByDiscount()
+                discount = true;
+
+                binding.discountSubmmit.setText("Click on me to see all")
+            }
+            else
+            {
+                BD.flight.value = originalList
+                binding.discountSubmmit.setText("Click on me to see discounts")
+                discount = false
+            }
+
+
+        }
+
         return binding.root
     }
 
@@ -135,6 +160,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
 
         initRecyclerView().let { adapter ->

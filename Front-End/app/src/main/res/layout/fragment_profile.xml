@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.profile.ProfileFragment"
+
     android:orientation="vertical"
     android:background="@color/white">
 
@@ -60,6 +61,7 @@
             android:ems="10"
             android:gravity="center_horizontal"
             android:inputType="textPersonName"
+            android:backgroundTint="#087E8B"
             android:paddingTop="20dp"
             android:textColor="@color/black" />
 
@@ -71,6 +73,7 @@
             android:layout_marginTop="10dp"
             android:ems="10"
             android:gravity="center_horizontal"
+            android:backgroundTint="#087E8B"
             android:inputType="textPersonName"
             android:paddingTop="20dp"
             android:textColor="@color/black" />
@@ -81,6 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginTop="10dp"
+            android:backgroundTint="#087E8B"
             android:ems="10"
             android:gravity="center_horizontal|center_vertical"
             android:inputType="textPersonName"
@@ -96,6 +100,7 @@
             android:layout_marginTop="10dp"
             android:ems="10"
             android:gravity="center_horizontal"
+            android:backgroundTint="#087E8B"
             android:inputType="textPersonName"
             android:paddingTop="20dp"
             android:textColor="@color/black" />
@@ -107,7 +112,7 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/button_rounded"
-            android:text="Modificar" />
+            android:text="Modify" />
     </LinearLayout>
 
 </LinearLayout>

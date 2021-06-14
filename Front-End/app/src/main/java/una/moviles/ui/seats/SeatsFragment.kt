@@ -1,5 +1,6 @@
 package una.moviles.ui.seats
 
+import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
@@ -26,7 +27,7 @@ class SeatsFragment : Fragment() {
     private val binding: FragmentSeatsBinding
         get() = _binding!!
 
-    val asientos = mutableListOf<String>()
+    val seats = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +43,7 @@ class SeatsFragment : Fragment() {
         _binding = FragmentSeatsBinding.inflate(inflater, container, false)
 
 
-        cargarAsientos(8, 8)
+        cargarAsientos(15, 6)
 
         binding.bkSubbmit.setOnClickListener{
             view?.findNavController()?.navigate(R.id.nav_purchase)
@@ -51,12 +52,13 @@ class SeatsFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ResourceAsColor")
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun cargarAsientos(filas: Int, columnas: Int) {
 
         var cant: TextView = binding.tvCantidad
         //var bundle = intent.extras
-        var cantidadA: String = "5"//bundle!!.getInt("cantidadAsientos").toString()
+        var cantidadA: String = "7"//bundle!!.getInt("cantidadAsientos").toString()
 
         cant.text = ""+cantidadA
         for (i in 1..filas) {
@@ -70,16 +72,16 @@ class SeatsFragment : Fragment() {
             for (j in 1..columnas) {
                 val btn: Button = Button(context)
                 btn.layoutParams = LinearLayout.LayoutParams(110, 110)
-                btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#3268F3"))
+                btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#087E8B"))
                 btn.tag = i.toString() + j.toString()
                 layout.addView(btn)
                 btn.setOnClickListener {
-                    if (btn.backgroundTintList!!.defaultColor == -15348162) {
-                        btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#3268F3"))
-                        asientos.remove(btn.tag.toString())
-                    } else if(asientos.count() < cantidadA.toInt()) {
-                        asientos.add(btn.tag.toString());
-                        btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#15CE3E"))
+                    if (btn.backgroundTintList!!.defaultColor == -391168) {
+                        btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#087E8B"))
+                        seats.remove(btn.tag.toString())
+                    } else if(seats.count() < cantidadA.toInt()) {
+                        seats.add(btn.tag.toString());
+                        btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#FA0800"))
                     }
                 }
             }

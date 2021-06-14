@@ -230,6 +230,19 @@
             android:textColor="#101010"
             android:textColorHint="#6C6666" />
 
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="270dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/Basic"
+            android:entries="@array/positions"
+            android:prompt="@string/position_prompt" />
+
+
+
+
         <Button
             android:id="@+id/det_submmit"
             android:layout_width="194dp"

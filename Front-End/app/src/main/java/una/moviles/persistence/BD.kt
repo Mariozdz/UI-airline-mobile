@@ -20,8 +20,8 @@ object BD {
 
             Flight( "22/4/2020","Costa Rica","7:30",4,60,58,1,23500,"9:50",1,0,"China"),
             Flight( "22/4/2020","China","7:30",4,60,58,1,23500,"9:50",1,0,"Costa Rica"),
-            Flight( "22/4/2020","Argentina","7:30",4,60,58,1,23500,"9:50",1,0,"USA"),
-            Flight( "22/4/2020","Usa","7:30",4,60,58,1,23500,"9:50",1,0,"Argentina")
+            Flight( "22/4/2020","Argentina","7:30",4,60,58,1,23500,"9:50",1,10,"USA"),
+            Flight( "22/4/2020","Usa","7:30",4,60,58,1,23500,"9:50",1,20,"Argentina")
         )
 
 
@@ -36,14 +36,18 @@ object BD {
 
     fun filterFlight(origen: String)
     {
-        flight.value = flight.value!!.filter { it.origen.toLowerCase().contains(origen.toLowerCase()) }
+        flight.value = flight.value!!.filter { it.origen.toLowerCase().contains(origen.toLowerCase()) or it.destino.toLowerCase().contains(origen.toLowerCase()) }
     }
 
     fun filterPurchase(origen: String)
     {
-        purchase.value = purchase.value!!.filter { it.userid.toLowerCase().contains(origen.toLowerCase()) }
+        purchase.value = purchase.value!!.filter { it.userid.toLowerCase().contains(origen.toLowerCase()) or it.tickets.toString().toLowerCase().contains(origen.toLowerCase()) }
     }
 
+    fun filterByDiscount()
+    {
+        flight.value = flight.value!!.filter { it.discount > 0 }
+    }
 
 
     var users :ArrayList<User> = arrayListOf(
