@@ -100,7 +100,7 @@ class HomeFragment : Fragment() {
                 } else {
 
                     /*val bundle = bundleOf("pos" to (position +1))*/
-                    Toast.makeText(context, "" + position + " nada", Toast.LENGTH_SHORT).show()
+                    view!!.findNavController().navigate(R.id.nav_home)
 
                 }
             }
@@ -117,7 +117,6 @@ class HomeFragment : Fragment() {
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
 
             }
-
 
         }
 

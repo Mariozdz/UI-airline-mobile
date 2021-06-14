@@ -15,7 +15,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="112dp"
+        android:layout_height="120dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="3dp"
         app:cardElevation="3dp"
@@ -26,49 +26,49 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="104dp"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_vueloc"
+                tools:ignore="VectorDrawableCompat" />
+
             <LinearLayout
-                android:layout_width="154dp"
+                android:layout_width="93dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/fli_origen"
+                    android:id="@+id/tit_origen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{flights.origen}"
+                    android:text="Origen:"
                     android:textColor="@color/black" />
 
                 <TextView
-                    android:id="@+id/fli_outdate"
+                    android:id="@+id/tit_destination"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{flights.outbounddate}"
+                    android:text="Destination:"
                     android:textColor="@color/black" />
 
                 <TextView
-                    android:id="@+id/fli_horasalida"
+                    android:id="@+id/tit_pricef"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{ flights.stime}"
+                    android:text="Price:"
                     android:textColor="@color/black" />
 
                 <TextView
-                    android:id="@+id/fli_precio"
+                    android:id="@+id/tit_discountf"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{flights.price}"
+                    android:text="Discount:"
                     android:textColor="@color/black" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="94dp"
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/ic_vuelo"
-                tools:ignore="VectorDrawableCompat" />
-
             <LinearLayout
-                android:layout_width="154dp"
+                android:layout_width="206dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
@@ -76,29 +76,41 @@
                     android:id="@+id/fli_destino"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{flights.destino}"
+                    android:gravity="center_horizontal"
+                    android:text="@{flights.origen}"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/fli_arrivetime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{flights.arrivetime}"
+                    android:gravity="center_horizontal"
+                    android:text="@{flights.destino}"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/fli_disponibles"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{flights.disponibles}"
+                    android:gravity="center_horizontal"
+                    android:text="@{flights.price}"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/fli_descuento"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
                     android:text="@{flights.discount}"
                     android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="Swipe me for details" />
 
             </LinearLayout>
 

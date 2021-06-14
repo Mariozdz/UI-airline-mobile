@@ -27,9 +27,13 @@ class ProfileFragment : Fragment() {
         super.onResume()
 
         binding.proSurnames.setText(BD.user?.surnames)
+        binding.proSurnames.isEnabled = false
         binding.proAddress.setText(BD.user?.address)
+        binding.proAddress.isEnabled = false
         binding.proCellphone.setText(BD.user?.cellphone)
+        binding.proCellphone.isEnabled = false
         binding.proPass.setText("***********")
+        binding.proPass.isEnabled = false
         binding.viewFullname.setText(BD.user?.name + BD.user?.surnames)
 
     }

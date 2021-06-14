@@ -12,13 +12,25 @@
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/Basic" />
+    android:background="@color/Basic" >
+
+    </SearchView>
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Swipe right to choose outbound seats\nSwipe left to choose inbound seats"
+        android:textColor="#000000"
+        android:textSize="18sp" />
 
     <androidx.recyclerview.widget.RecyclerView
-    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    tools:listitem="@layout/purchase_list"
-    android:id="@+id/purchase_recycle"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
+        android:id="@+id/purchase_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="639dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/purchase_list" />
 
 </LinearLayout>

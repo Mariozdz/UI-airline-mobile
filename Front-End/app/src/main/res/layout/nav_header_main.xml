@@ -15,8 +15,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="124dp"
-        android:layout_height="89dp"
+        android:layout_width="114dp"
+        android:layout_height="78dp"
         android:contentDescription="@string/nav_header_desc"
         app:srcCompat="@drawable/ic_logo"
         tools:ignore="VectorDrawableCompat" />
@@ -25,11 +25,13 @@
         android:id="@+id/name_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
 
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
+        android:textColor="@color/white"
         android:id="@+id/email_nav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

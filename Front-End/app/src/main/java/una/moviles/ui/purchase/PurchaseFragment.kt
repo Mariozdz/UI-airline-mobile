@@ -102,7 +102,7 @@ class PurchaseFragment : Fragment() {
                 } else {
 
                     /*val bundle = bundleOf("pos" to (position +1))*/
-                    Toast.makeText(context, " SWIPE TO RIGHT :DDDDD", Toast.LENGTH_SHORT).show()
+                        view!!.findNavController().navigate(R.id.seatsFragment)
 
                 }
             }
