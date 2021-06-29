@@ -6,50 +6,73 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import una.moviles.databinding.ActivityMainBinding
 import una.moviles.logic.User
 import una.moviles.persistence.BD
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var loginViewModel: LoginViewModel
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        var et_user_name = findViewById<EditText>(R.id.et_user_name)
-        var et_password = findViewById<EditText>(R.id.et_password)
-        var btn_register= findViewById<Button>(R.id.btn_register)
-        var btn_submit = findViewById<Button>(R.id.btn_submit)
+
+        var et_user_name = binding.etUserName
+        var et_password = binding.etPassword
+        var btn_register= binding.btnRegister
+        var btn_submit = binding.btnSubmit
+
+
+        loginViewModel = LoginViewModel()
+
+        loginViewModel.user.observe(this){
+            user ->
+
+            val intent = Intent(this, MenuActivity::class.java)
+            intent.putExtra("user",loginViewModel.user.value)
+            startActivity(intent)
+        }
+
 
         btn_submit.setOnClickListener {
             val user_name = et_user_name.text.toString()
             val password = et_password.text.toString()
 
+            loginViewModel.login(user_name,password)
 
-            val intent = Intent(this, MenuActivity::class.java)
-
-
-            var us: User? = BD.validateUser(user_name,password)
-
-
-
-            if (us != null)
+            if (loginViewModel.user.value == null)
             {
-                intent.putExtra("user",us)
-                startActivity(intent)
-            } else {
-                val toast1 = Toast.makeText(applicationContext,
-                        "Datos erroneos", Toast.LENGTH_LONG)
-                toast1.show()
+                Toast.makeText(this,"Invalide user or pass", Toast.LENGTH_LONG)
             }
 
         }
-
         btn_register.setOnClickListener {
 
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
 
+    }
 
+    override fun onResume() {
+        super.onResume()
+        val username = binding.etUserName
+        val password = binding.etPassword
+        username.setText("")
+        password.setText("")
+        username.requestFocus()
+        loginViewModel.open(lifecycleScope)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        loginViewModel.close()
     }
 }

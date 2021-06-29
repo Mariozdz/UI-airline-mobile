@@ -16,6 +16,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -55,4 +56,19 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'it.xabaras.android:recyclerview-swipedecorator:1.2.1'
+
+    //ktor
+
+    implementation "io.ktor:ktor-client-cio:$ktor_version"
+    implementation "io.ktor:ktor-client-websockets:$ktor_version"
+    // implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.1'
+
+    implementation 'com.google.code.gson:gson:2.8.7'
+
+    //lifecicle
+
+
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
+
+
 }

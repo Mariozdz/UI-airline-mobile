@@ -1,7 +1,6 @@
-package una.moviles.ui.home
+package una.moviles
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,26 +12,25 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.launch
-import org.json.JSONArray
-import org.json.JSONObject
-import una.moviles.logic.Flight
 import una.moviles.logic.User
 import una.moviles.ui.HOST
 import una.moviles.ui.PATH_APP
 import una.moviles.ui.PORT
+
 import java.util.*
 
-class HomeViewModel : ViewModel() {
+
+class LoginViewModel : ViewModel() {
 
     var client: HttpClient? = null
-    var flights: MutableLiveData<List<Flight>>
+    var user: MutableLiveData<User>
     val outputEventChannel: Channel<String> = Channel(10)
     val inputEventChannel: Channel<String> = Channel(10)
 
     init {
-        flights = MutableLiveData()
-
+        user = MutableLiveData()
     }
+
 
     fun open(coroutineScope: CoroutineScope) {
         client = buildClient()
@@ -42,7 +40,6 @@ class HomeViewModel : ViewModel() {
                 host = HOST,
                 port = PORT
             ) {
-                get_all()
                 val input = launch { output() }
                 val output = launch { input() }
                 input.join()
@@ -77,32 +74,32 @@ class HomeViewModel : ViewModel() {
 
     private fun parseRes(res: String) {
         val gson = Gson()
+        val properties = gson.fromJson(res, Properties::class.java)
 
-        val lista = JSONArray(res)
+        if (!properties.contains("none")) {
 
-        var fli : ArrayList<Flight> = ArrayList()
+            var latitud = properties.getProperty("latitud")
+            var longitud = properties.getProperty("longitud")
+            var password = properties.getProperty("password")
+            var name = properties.getProperty("name")
+            var usertype = properties.get("usertype")
+            var cellphone = properties.getProperty("cellphone")
+            var id = properties.getProperty("id")
+            var surnames = properties.getProperty("surnames")
 
-        for (i in 0 until lista.length())
-        {
-            var obj : String = lista.getString(i)
-            var jso : JSONObject = JSONObject(obj)
-
-            fli.add( Flight(
-                jso.getString("sdate"),
-                jso.getString("origen"),
-                jso.getString("arrivetime"),
-                jso.getInt("stime"),
-                jso.getInt("cantidadasientos"),
-                jso.getInt("disponibles"),
-                jso.getInt("outbound"),
-                jso.getInt("price"),
-                jso.getString("outbounddate"),
-                jso.getInt("id"),
-                jso.getInt("discount"),
-                jso.getString("destino"))
+            user.postValue(
+                User(
+                    id,
+                    "heredia",
+                    name,
+                    surnames,
+                    cellphone,
+                    "mariozdz@gmail.com",
+                    password
+                )
             )
         }
-        this.flights.postValue( fli)
+
 
     }
 
@@ -121,18 +118,20 @@ class HomeViewModel : ViewModel() {
         install(WebSockets)
     }
 
-    fun get_all() {
+    fun login(email: String, password: String) {
 
         viewModelScope.launch {
             val gson = Gson()
             val req = Properties()
-            req.put("Action", "get_all")
+            req.put("id", email)
+            req.put("password", password)
+            req.put("Action", "login")
             outputEventChannel.send(gson.toJson(req))
         }
     }
 
     companion object {
-        private const val PATH_LOGIN = "$PATH_APP/flight"
+        private const val PATH_LOGIN = "$PATH_APP/user"
     }
 
 }

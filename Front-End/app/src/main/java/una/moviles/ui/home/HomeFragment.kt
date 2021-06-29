@@ -8,24 +8,27 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
+import una.moviles.LoginViewModel
 import una.moviles.R
 import una.moviles.databinding.FragmentHomeBinding
+import una.moviles.logic.Flight
 import una.moviles.persistence.BD
 import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
+
     var position: Int = 0
-
     var discount: Boolean = false
-
     lateinit var lista: RecyclerView
-    var originalList = BD.flight.value
+    private var originalList = ArrayList<Flight>()
 
     private var _binding: FragmentHomeBinding? = null
     private val binding: FragmentHomeBinding
@@ -41,7 +44,7 @@ class HomeFragment : Fragment() {
 
     private fun OnInitViewmodel(adapter: HomeAdapter) {
 
-        BD.flight.observe(viewLifecycleOwner) { items ->
+        homeViewModel.flights.observe(viewLifecycleOwner) { items ->
             adapter.items = items
         }
     }
@@ -53,6 +56,8 @@ class HomeFragment : Fragment() {
     ): View? {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        homeViewModel = HomeViewModel()
 
         lista = binding.flightRecycle
         lista.setHasFixedSize(true)
@@ -96,7 +101,7 @@ class HomeFragment : Fragment() {
                 if (direction == ItemTouchHelper.LEFT) {
 
 
-                    val bundle = bundleOf("flight" to BD.flight.value!![viewHolder.adapterPosition] )
+                    val bundle = bundleOf("flight" to homeViewModel.flights.value!![viewHolder.adapterPosition] )
                     view!!.findNavController().navigate(R.id.nav_check,bundle)
 
                 } else {
@@ -119,7 +124,6 @@ class HomeFragment : Fragment() {
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
 
             }
-
         }
 
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
@@ -167,5 +171,15 @@ class HomeFragment : Fragment() {
             OnInitViewmodel(adapter)
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.open(lifecycleScope)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        homeViewModel.close()
     }
 }

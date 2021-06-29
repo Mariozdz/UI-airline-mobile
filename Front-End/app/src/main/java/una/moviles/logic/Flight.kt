@@ -8,7 +8,7 @@ class Flight (
     var origen: String,
     var arrivetime: String,
     var stime: Int,
-    var cantidadsientos: Int,
+    var cantidadasientos: Int,
     var disponibles: Int,
     var outbound: Int,
     var price: Int,
