@@ -7,19 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import una.moviles.R
 import una.moviles.databinding.FragmentPurchaseBinding
+import una.moviles.logic.Flight
+import una.moviles.logic.Purchase
+import una.moviles.logic.User
 import una.moviles.persistence.BD
 
 class PurchaseFragment : Fragment() {
 
     private lateinit var purchaseViewModel: PurchaseViewModel
     lateinit var lista: RecyclerView
-    var originalList = BD.purchase.value
+    lateinit var originalList : List<Purchase>
 
     var position: Int = 0
 
@@ -37,7 +41,7 @@ class PurchaseFragment : Fragment() {
 
     private fun OnInitViewmodel(adapter: PurchaseAdapter) {
 
-        BD.purchase.observe(viewLifecycleOwner) { items ->
+        purchaseViewModel.purchase.observe(viewLifecycleOwner) { items ->
             adapter.items = items
         }
     }
@@ -52,8 +56,11 @@ class PurchaseFragment : Fragment() {
         _binding = FragmentPurchaseBinding.inflate(inflater, container, false)
 
 
+        purchaseViewModel = PurchaseViewModel()
+
         lista = binding.purchaseRecycle
         lista.setHasFixedSize(true)
+
 
 
         binding.searchBox.setOnQueryTextListener(object :
@@ -64,8 +71,15 @@ class PurchaseFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
 
-                BD.purchase.value = originalList
-                BD.filterPurchase(newText!!)
+               /* BD.purchase.value = originalList*/
+               // purchaseViewModel.purchase.value = originalList
+
+                purchaseViewModel.purchase.value = purchaseViewModel.backup.value
+
+                if (newText != null) {
+                    purchaseViewModel.purchase.value = purchaseViewModel.purchase.value!!.filter {  it.tickets.toString().toLowerCase().contains(newText.toLowerCase()) }
+                }
+
                 return false
             }
         })
@@ -146,6 +160,22 @@ class PurchaseFragment : Fragment() {
             OnInitViewmodel(adapter)
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        var bundle = requireActivity().intent.extras
+
+        var us = bundle?.get("user") as User
+
+        purchaseViewModel.open(lifecycleScope,us.id)
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        purchaseViewModel.close()
     }
 
 }

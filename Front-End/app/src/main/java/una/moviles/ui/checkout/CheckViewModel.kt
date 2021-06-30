@@ -1,4 +1,4 @@
-package una.moviles
+package una.moviles.ui.checkout
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -12,33 +12,34 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.launch
-import una.moviles.logic.User
+import org.json.JSONArray
+import org.json.JSONObject
+import una.moviles.logic.Purchase
 import una.moviles.ui.HOST
 import una.moviles.ui.PATH_APP
 import una.moviles.ui.PORT
-
 import java.util.*
 
-
-class LoginViewModel : ViewModel() {
+class CheckViewModel : ViewModel() {
 
     var client: HttpClient? = null
-    var user: MutableLiveData<User>
+    var purchase: MutableLiveData<List<Purchase>>
     val outputEventChannel: Channel<String> = Channel(10)
     val inputEventChannel: Channel<String> = Channel(10)
 
-    init {
-        user = MutableLiveData()
-    }
+    var use = ""
 
+    init {
+        purchase = MutableLiveData()
+    }
 
     fun open(coroutineScope: CoroutineScope) {
         client = buildClient()
         coroutineScope.launch {
             client!!.webSocket(
-                path = PATH_LOGIN,
-                host = HOST,
-                port = PORT
+                    path = PATH_LOGIN,
+                    host = HOST,
+                    port = PORT
             ) {
                 val input = launch { output() }
                 val output = launch { input() }
@@ -61,7 +62,7 @@ class LoginViewModel : ViewModel() {
             for (frame in incoming) {
                 frame as? Frame.Text ?: continue
                 try {
-                    Log.d("onMessage", "Message received: ${frame.readText()}")
+                    Log.d("onMessage", "purchase: ${frame.readText()}")
                     parseRes(frame.readText())
                 } catch (e: Throwable) {
                     Log.e("onMessage", "${e.message}", e)
@@ -74,35 +75,47 @@ class LoginViewModel : ViewModel() {
 
     private fun parseRes(res: String) {
         val gson = Gson()
-        val properties = gson.fromJson(res, Properties::class.java)
 
-        if (!properties.contains("none")) {
+        if (res.contains("update") or res.contains("state")) {
 
-            var latitud = properties.getProperty("latitud")
-            var longitud = properties.getProperty("longitud")
-            var password = properties.getProperty("password")
-            var name = properties.getProperty("name")
-            var usertype = properties.getProperty("usertype")
-            var cellphone = properties.getProperty("cellphone")
-            var id = properties.getProperty("id")
-            var surnames = properties.getProperty("surnames")
-
-            user.postValue(
-                User(
-                    id,
-                    "heredia",
-                    name,
-                    surnames,
-                    cellphone,
-                    "mariozdz@gmail.com",
-                    password,
-                    usertype.toInt()
-
-                )
-            )
         }
+        else
+        {
+            val lista = JSONArray(res)
+
+            var fli: ArrayList<Purchase> = ArrayList()
+
+            for (i in 0 until lista.length()) {
+                var obj: String = lista.getString(i)
+                var jso: JSONObject = JSONObject(obj)
 
 
+                var returnf: Int = 0
+                var id = jso.getInt("id")
+                var flightid = jso.getInt("flightid")
+
+                var isselected = jso.getBoolean("isselected")
+                var totalprice = jso.getDouble("totalprice")
+                var tickets = jso.getInt("tickets")
+                if (jso.has("returnflightid")) {
+                    returnf = jso.getInt("returnflightid")
+                }
+                var userid = jso.getString("userid")
+                var discount = 0
+
+                fli.add(Purchase(
+                        id,
+                        flightid,
+                        isselected,
+                        totalprice,
+                        tickets,
+                        returnf,
+                        userid,
+                        discount
+                ))
+            }
+            this.purchase.postValue(fli)
+        }
     }
 
     private suspend fun DefaultClientWebSocketSession.output() {
@@ -120,20 +133,22 @@ class LoginViewModel : ViewModel() {
         install(WebSockets)
     }
 
-    fun login(email: String, password: String) {
+    fun purchase(user:String, cant : Int, id : Int ) {
 
         viewModelScope.launch {
             val gson = Gson()
             val req = Properties()
-            req.put("id", email)
-            req.put("password", password)
-            req.put("Action", "login")
+            req.put("Action", "create")
+            req.put("userid", user)
+            req.put("tickets", cant)
+            req.put("flightid", id)
             outputEventChannel.send(gson.toJson(req))
         }
     }
 
     companion object {
-        private const val PATH_LOGIN = "$PATH_APP/user"
+        private const val PATH_LOGIN = "$PATH_APP/purchase"
     }
+
 
 }

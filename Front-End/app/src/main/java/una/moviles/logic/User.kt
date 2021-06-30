@@ -10,4 +10,5 @@ class User(
     var surnames: String,
     var cellphone: String,
     var email: String,
-    var password: String ): Serializable
+    var password: String,
+    var usertype : Int): Serializable

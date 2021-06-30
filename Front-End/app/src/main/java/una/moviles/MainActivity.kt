@@ -47,6 +47,8 @@ class MainActivity : AppCompatActivity() {
 
             loginViewModel.login(user_name,password)
 
+
+
             if (loginViewModel.user.value == null)
             {
                 Toast.makeText(this,"Invalide user or pass", Toast.LENGTH_LONG)

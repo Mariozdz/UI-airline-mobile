@@ -25,11 +25,11 @@ object BD {
         )
 
 
-        purchase.value = listOf(Purchase(1,1,25620.0,5,1,"User3",10),
-            Purchase(1,1,25620.0,5,1,"p1",10),
-            Purchase(1,1,25620.0,5,0,"p1",5),
-            Purchase(1,1,25620.0,5,1,"p1",7),
-            Purchase(1,1,25620.0,4,1,"p1",8)
+        purchase.value = listOf(Purchase(1,1,false,25620.0,5,1,"User3",10),
+            Purchase(1,1,false,25620.0,5,1,"p1",10),
+            Purchase(1,1,false,25620.0,5,0,"p1",5),
+            Purchase(1,1,false,25620.0,5,1,"p1",7),
+            Purchase(1,1,false,25620.0,4,1,"p1",8)
         )
 
     }
@@ -52,10 +52,10 @@ object BD {
 
     var users :ArrayList<User> = arrayListOf(
 
-            User("p0","Costa Rica","Mario","Arguello Borge","80828584","p0","p0"),
-            User("p1", "San Jose","Mario","Arguello Borge","88995632","mariozdz@gmail.com","p1"),
-            User("p2", "Heredia","Braslyn","Rodriguez Ramirez","85964123","braslynrrr@gmail.com","p2"),
-            User("p3", "San Jose","Heiner","Leon Herrera","88888888","heineken@gmail.com","p3")
+            User("p0","Costa Rica","Mario","Arguello Borge","80828584","p0","p0",0),
+            User("p1", "San Jose","Mario","Arguello Borge","88995632","mariozdz@gmail.com","p1",0),
+            User("p2", "Heredia","Braslyn","Rodriguez Ramirez","85964123","braslynrrr@gmail.com","p2",0),
+            User("p3", "San Jose","Heiner","Leon Herrera","88888888","heineken@gmail.com","p3",0)
     )
 
     fun validateUser(email: String, password: String) : User?

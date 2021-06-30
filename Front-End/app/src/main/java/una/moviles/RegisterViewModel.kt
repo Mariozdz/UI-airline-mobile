@@ -12,33 +12,37 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.launch
+import org.json.JSONArray
+import org.json.JSONObject
+import una.moviles.logic.Purchase
 import una.moviles.logic.User
 import una.moviles.ui.HOST
 import una.moviles.ui.PATH_APP
 import una.moviles.ui.PORT
-
 import java.util.*
 
-
-class LoginViewModel : ViewModel() {
+class RegisterViewModel : ViewModel() {
 
     var client: HttpClient? = null
-    var user: MutableLiveData<User>
+    var purchase: MutableLiveData<List<Purchase>>
     val outputEventChannel: Channel<String> = Channel(10)
     val inputEventChannel: Channel<String> = Channel(10)
 
-    init {
-        user = MutableLiveData()
-    }
+    var istrue: Boolean = false
 
+    var use = ""
+
+    init {
+        purchase = MutableLiveData()
+    }
 
     fun open(coroutineScope: CoroutineScope) {
         client = buildClient()
         coroutineScope.launch {
             client!!.webSocket(
-                path = PATH_LOGIN,
-                host = HOST,
-                port = PORT
+                    path = PATH_LOGIN,
+                    host = HOST,
+                    port = PORT
             ) {
                 val input = launch { output() }
                 val output = launch { input() }
@@ -61,7 +65,7 @@ class LoginViewModel : ViewModel() {
             for (frame in incoming) {
                 frame as? Frame.Text ?: continue
                 try {
-                    Log.d("onMessage", "Message received: ${frame.readText()}")
+                    Log.d("onMessage", "purchase: ${frame.readText()}")
                     parseRes(frame.readText())
                 } catch (e: Throwable) {
                     Log.e("onMessage", "${e.message}", e)
@@ -74,34 +78,11 @@ class LoginViewModel : ViewModel() {
 
     private fun parseRes(res: String) {
         val gson = Gson()
-        val properties = gson.fromJson(res, Properties::class.java)
 
-        if (!properties.contains("none")) {
+        if (res.contains("update") or res.contains("state") or res.contains("estado")) {
 
-            var latitud = properties.getProperty("latitud")
-            var longitud = properties.getProperty("longitud")
-            var password = properties.getProperty("password")
-            var name = properties.getProperty("name")
-            var usertype = properties.getProperty("usertype")
-            var cellphone = properties.getProperty("cellphone")
-            var id = properties.getProperty("id")
-            var surnames = properties.getProperty("surnames")
-
-            user.postValue(
-                User(
-                    id,
-                    "heredia",
-                    name,
-                    surnames,
-                    cellphone,
-                    "mariozdz@gmail.com",
-                    password,
-                    usertype.toInt()
-
-                )
-            )
+            istrue = true
         }
-
 
     }
 
@@ -120,14 +101,20 @@ class LoginViewModel : ViewModel() {
         install(WebSockets)
     }
 
-    fun login(email: String, password: String) {
+    fun registrar(user: User) {
 
         viewModelScope.launch {
             val gson = Gson()
             val req = Properties()
-            req.put("id", email)
-            req.put("password", password)
-            req.put("Action", "login")
+            req.put("Action", "create")
+            req.put("id", user.email )
+            req.put("password", user.password)
+            req.put("longitud", 1.1111)
+            req.put("latitud", 1.1111)
+            req.put("name", user.name)
+            req.put("cellphone", user.cellphone)
+            req.put("surnames", user.surnames)
+            req.put("usertype",1)
             outputEventChannel.send(gson.toJson(req))
         }
     }

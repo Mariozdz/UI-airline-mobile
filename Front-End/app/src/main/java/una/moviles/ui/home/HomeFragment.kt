@@ -2,6 +2,7 @@ package una.moviles.ui.home
 
 import android.graphics.Canvas
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import una.moviles.LoginViewModel
 import una.moviles.R
 import una.moviles.databinding.FragmentHomeBinding
 import una.moviles.logic.Flight
+import una.moviles.logic.User
 import una.moviles.persistence.BD
 import java.util.*
 import kotlin.collections.ArrayList
@@ -62,6 +64,12 @@ class HomeFragment : Fragment() {
         lista = binding.flightRecycle
         lista.setHasFixedSize(true)
 
+       /* var bundle = requireActivity().intent.extras
+
+        if (bundle != null) {
+            var us = bundle.get("user") as User
+            Log.d("user",us.cellphone)
+        }*/
 
         binding.searchBox.setOnQueryTextListener(object :
             android.widget.SearchView.OnQueryTextListener {
@@ -175,6 +183,7 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
         homeViewModel.open(lifecycleScope)
     }
 

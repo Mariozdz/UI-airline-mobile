@@ -65,7 +65,16 @@ class HomeViewModel : ViewModel() {
                 frame as? Frame.Text ?: continue
                 try {
                     Log.d("onMessage", "Message received: ${frame.readText()}")
-                    parseRes(frame.readText())
+
+                    var res: String = frame.readText()
+
+                    if(res.contains("action")) {
+                        get_all()
+                    }
+                    else {
+                        parseRes(res)
+                    }
+
                 } catch (e: Throwable) {
                     Log.e("onMessage", "${e.message}", e)
                 }

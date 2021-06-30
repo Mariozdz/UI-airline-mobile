@@ -6,6 +6,7 @@ class Purchase (
 
     var id: Int,
     var flightid: Int,
+    var isselected: Boolean,
     var totalprice: Double,
     var tickets: Int,
     var returnflightid: Int,

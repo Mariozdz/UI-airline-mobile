@@ -5,14 +5,20 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import una.moviles.logic.User
 import una.moviles.persistence.BD
 
 class RegisterActivity : AppCompatActivity() {
+
+    private lateinit var registerViewModel: RegisterViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+
+        registerViewModel = RegisterViewModel()
 
         var back = findViewById<Button>(R.id.go_back)
         var register = findViewById<Button>(R.id.reg_summit)
@@ -31,10 +37,10 @@ class RegisterActivity : AppCompatActivity() {
             var password = findViewById<EditText>(R.id.reg_password).text.toString()
 
 
-            if (name != "" && email != "" && password != "" && validate(email))
+            if (name != "" && email != "" && password != "" && surnames != "" && cellphone != "" && password != "")
             {
-                val us: User = User( "userrand", address,name,surnames,cellphone,email,password)
-                BD.users.add(us)
+                val us: User = User( email, address,name,surnames,cellphone,email,password,0)
+                registerViewModel.registrar(us)
                 val toast1 = Toast.makeText(applicationContext,
                         "Registrado con exito", Toast.LENGTH_LONG)
                 toast1.show()
@@ -56,5 +62,16 @@ class RegisterActivity : AppCompatActivity() {
                 return false
         }
         return true;
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        registerViewModel.open(lifecycleScope)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        registerViewModel.close()
     }
 }
