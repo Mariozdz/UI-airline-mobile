@@ -185,10 +185,12 @@ class HomeFragment : Fragment() {
         super.onResume()
 
         homeViewModel.open(lifecycleScope)
+        homeViewModel.openPurchase(lifecycleScope)
     }
 
     override fun onPause() {
         super.onPause()
         homeViewModel.close()
+        homeViewModel.closePurchase()
     }
 }

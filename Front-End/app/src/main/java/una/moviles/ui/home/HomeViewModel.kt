@@ -29,9 +29,19 @@ class HomeViewModel : ViewModel() {
     val outputEventChannel: Channel<String> = Channel(10)
     val inputEventChannel: Channel<String> = Channel(10)
 
+    // For purchase
+
+    var clientP: HttpClient? = null
+    var flag : MutableLiveData<Boolean>
+    val outputChannel: Channel<String> = Channel(10)
+    val inputChannel: Channel<String> = Channel(10)
+
+
+
     init {
         flights = MutableLiveData()
-
+        flag = MutableLiveData()
+        flag.value = false
     }
 
     fun open(coroutineScope: CoroutineScope) {
@@ -52,10 +62,38 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    // For purchase
+
+    fun openPurchase(coroutineScope: CoroutineScope) {
+        clientP = buildClientPurchase()
+        coroutineScope.launch {
+            clientP!!.webSocket(
+                    path = PATH_LOGIN2,
+                    host = HOST,
+                    port = PORT
+            ) {
+
+                val input = launch { outputPurchase() }
+                val output = launch { inputPurchase() }
+                input.join()
+                output.join()
+            }
+            clientP?.close()
+        }
+    }
+
+
+
     fun close() {
         Log.d("onClose", "onClose")
         client?.close()
         client = null
+    }
+
+    fun closePurchase() {
+        Log.d("onClosePurchase", "onClose")
+        clientP?.close()
+        clientP = null
     }
 
 
@@ -83,6 +121,29 @@ class HomeViewModel : ViewModel() {
             Log.e("onMessage", "${e.message}", e)
         }
     }
+
+    private suspend fun DefaultClientWebSocketSession.inputPurchase() {
+        try {
+            for (frame in incoming) {
+                frame as? Frame.Text ?: continue
+                try {
+                    Log.d("onMessagePurchase", "Message received: ${frame.readText()}")
+
+                    var res: String = frame.readText()
+
+                    if(res.contains("action")) {
+                        get_all()
+                    }
+
+                } catch (e: Throwable) {
+                    Log.e("onMessage", "${e.message}", e)
+                }
+            }
+        } catch (e: Throwable) {
+            Log.e("onMessage", "${e.message}", e)
+        }
+    }
+
 
     private fun parseRes(res: String) {
         val gson = Gson()
@@ -126,7 +187,24 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    // For purchase
+
+    private suspend fun DefaultClientWebSocketSession.outputPurchase() {
+        try {
+            outputChannel.consumeEach {
+                Log.d("onOutput", it)
+                send(it)
+            }
+        } catch (e: Throwable) {
+            Log.e("", "${e.message}", e)
+        }
+    }
+
     private fun buildClient() = HttpClient {
+        install(WebSockets)
+    }
+
+    private fun buildClientPurchase() = HttpClient {
         install(WebSockets)
     }
 
@@ -140,8 +218,10 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+
     companion object {
         private const val PATH_LOGIN = "$PATH_APP/flight"
+        private const val PATH_LOGIN2 = "$PATH_APP/purchase"
     }
 
 }

@@ -15,7 +15,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="136dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="3dp"
         app:cardElevation="3dp"
@@ -65,6 +65,13 @@
                     android:layout_height="wrap_content"
                     android:text="Discount:"
                     android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Avaliable:"
+                    android:textColor="#0E0E0E" />
             </LinearLayout>
 
             <LinearLayout
@@ -77,7 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="@{flights.origen}"
+                    android:text="@{flights.origen + ' ' + flights.id }"
                     android:textColor="@color/black" />
 
                 <TextView
@@ -105,12 +112,20 @@
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:id="@+id/_sits"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{flights.disponibles}"
+                    android:textColor="#0C0C0C" />
+
+                <TextView
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
-                    android:gravity="center_horizontal"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="Swipe me for details" />
+                    android:gravity="center_horizontal"
+                    android:text="Swipe me for details"
+                    android:textColor="@color/black" />
 
             </LinearLayout>
 

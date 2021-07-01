@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -74,11 +76,11 @@ class PurchaseFragment : Fragment() {
                /* BD.purchase.value = originalList*/
                // purchaseViewModel.purchase.value = originalList
 
-                purchaseViewModel.purchase.value = purchaseViewModel.backup.value
+               /* purchaseViewModel.purchase.value = purchaseViewModel.backup.value
 
                 if (newText != null) {
                     purchaseViewModel.purchase.value = purchaseViewModel.purchase.value!!.filter {  it.tickets.toString().toLowerCase().contains(newText.toLowerCase()) }
-                }
+                }*/
 
                 return false
             }
@@ -107,16 +109,21 @@ class PurchaseFragment : Fragment() {
 
                 if (direction == ItemTouchHelper.LEFT) {
 
+                    var pur = purchaseViewModel.purchase.value!![viewHolder.adapterPosition]
 
-                    view!!.findNavController().navigate(R.id.seatsFragment)
+                    if (pur.isselected == true)
+                    {
+                        Toast.makeText(context,"Seats are selected",Toast.LENGTH_LONG).show()
+                        view!!.findNavController().navigate(R.id.nav_purchase)
 
-                   /* val intent = Intent(context, BookingActivity::class.java)
-                    startActivity(intent)*/
+                    }else {
 
+                        val bundle = bundleOf("purchase" to pur)
+                        view!!.findNavController().navigate(R.id.seatsFragment, bundle)
+                    }
                 } else {
 
-                    /*val bundle = bundleOf("pos" to (position +1))*/
-                        view!!.findNavController().navigate(R.id.seatsFragment)
+
 
                 }
             }
@@ -165,6 +172,8 @@ class PurchaseFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
+
+        purchaseViewModel.viewModelScope
         var bundle = requireActivity().intent.extras
 
         var us = bundle?.get("user") as User
