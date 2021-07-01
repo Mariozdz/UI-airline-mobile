@@ -96,7 +96,7 @@ class SeatsFragment : Fragment() {
 
         binding.bkSubbmit.setOnClickListener{
 
-            Log.d("PruebaS", seats[0] + " " + seats[1])
+            seatsViewModel.generarTickets(seats, bund.id)
             view?.findNavController()?.navigate(R.id.nav_purchase)
         }
 
@@ -134,7 +134,7 @@ class SeatsFragment : Fragment() {
 
                 btn.layoutParams = LinearLayout.LayoutParams(200, 110)
                 btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#087E8B"))
-                btn.tag = j.toString() + i.toString()
+                btn.tag = j.toString() +"-"+ i.toString()
 
                 btn.text = j.toString()+ ' ' +i.toString()
 

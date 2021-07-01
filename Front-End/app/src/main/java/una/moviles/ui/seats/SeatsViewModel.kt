@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import io.ktor.client.*
 import io.ktor.client.features.websocket.*
 import io.ktor.http.cio.websocket.*
@@ -294,7 +295,35 @@ class SeatsViewModel : ViewModel() {
         }
     }
 
+     fun generarTickets(seats : MutableList<String>, id:Int)
+    {
+        var campos = JSONArray()
 
+        for (i in 0 until seats.size)
+        {
+
+
+            var temp = JSONObject()
+            temp.put("column", seats[i].split('-')[1] )
+            temp.put("row", seats[i].split('-')[0] )
+            temp.put("isreturn",0)
+
+            campos.put(temp)
+        }
+        Log.d("seats", seats.toString())
+        Log.d("pruebas insert", campos.toString(1))
+
+
+        viewModelScope.launch {
+            val req = JSONObject()
+            req.put("Action", "Create_tickets")
+            req.put("asientos",campos)
+            req.put("purchaseid", id )
+
+            outputChannel.send(req.toString())
+        }
+
+    }
     companion object {
         private const val PATH_LOGIN = "$PATH_APP/flight"
         private const val PATH_LOGIN2 = "$PATH_APP/purchase"
