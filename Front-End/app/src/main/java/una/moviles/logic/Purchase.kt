@@ -12,7 +12,18 @@ class Purchase (
     var returnflightid: Int,
     var userid: String,
     var realTickets: Int
-        ) : Serializable
+        ) : Serializable {
+
+
+                fun getIs() : String
+                {
+                        if (this.isselected == false)
+                        {
+                                return "NO"
+                        }
+                        return "YES"
+                }
+        }
 
 
 

@@ -26,6 +26,9 @@ class HomeViewModel : ViewModel() {
 
     var client: HttpClient? = null
     var flights: MutableLiveData<List<Flight>>
+    var backup : MutableLiveData<List<Flight>>
+
+
     val outputEventChannel: Channel<String> = Channel(10)
     val inputEventChannel: Channel<String> = Channel(10)
 
@@ -40,6 +43,7 @@ class HomeViewModel : ViewModel() {
 
     init {
         flights = MutableLiveData()
+        backup = MutableLiveData()
         flag = MutableLiveData()
         flag.value = false
     }
@@ -172,7 +176,8 @@ class HomeViewModel : ViewModel() {
                 jso.getString("destino"))
             )
         }
-        this.flights.postValue( fli)
+        this.flights.postValue( fli.sortedBy { it.id } )
+        this.backup.postValue( fli.sortedBy { it.id } )
 
     }
 

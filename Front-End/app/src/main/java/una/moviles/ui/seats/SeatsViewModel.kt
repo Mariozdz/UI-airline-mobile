@@ -109,13 +109,14 @@ class SeatsViewModel : ViewModel() {
                 frame as? Frame.Text ?: continue
                 try {
                     Log.d("onMessage", "Message received: ${frame.readText()}")
+                    Log.d("isEmpty?",  frame.readText())
 
                     var res: String = frame.readText()
 
                     if(res.contains("action")) {
                         get_all()
                     }
-                    else if (res.contains("column"))
+                    else if (res.contains("column") || res == "[]" )
                     {
                         Log.d("Ocupados", res)
                         parseSeats(res)
