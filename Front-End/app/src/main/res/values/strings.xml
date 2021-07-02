@@ -22,6 +22,36 @@
         <item>Mastercard</item>
     </string-array>
 
+
+    <string-array name="countries1">
+        <item>Origen</item>
+        <item>Costa Rica</item>
+        <item>Argentina</item>
+        <item>China</item>
+        <item>Canada</item>
+        <item>Estados Unidos</item>
+        <item>Chile</item>
+    </string-array>
+
+    <string-array name="countries2">
+        <item>Destino</item>
+        <item>Costa Rica</item>
+        <item>Argentina</item>
+        <item>China</item>
+        <item>Canada</item>
+        <item>Estados Unidos</item>
+        <item>Chile</item>
+    </string-array>
+
+    <string-array name="others">
+        <item>Otros</item>
+        <item>Ida</item>
+        <item>Ida y vuelta</item>
+    </string-array>
+
+
+
     <string name="country_prompt">Choose a country</string>
     <string name="position_prompt">Choose a position</string>
+    <string name="otros_prompt">Choose a position</string>
 </resources>

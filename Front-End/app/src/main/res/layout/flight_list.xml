@@ -15,7 +15,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="136dp"
+        android:layout_height="154dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="3dp"
         app:cardElevation="3dp"
@@ -28,7 +28,7 @@
 
             <ImageView
                 android:id="@+id/imageView3"
-                android:layout_width="104dp"
+                android:layout_width="106dp"
                 android:layout_height="match_parent"
                 app:srcCompat="@drawable/ic_vueloc"
                 tools:ignore="VectorDrawableCompat" />
@@ -72,6 +72,13 @@
                     android:layout_height="wrap_content"
                     android:text="Avaliable:"
                     android:textColor="#0E0E0E" />
+
+                <TextView
+                    android:id="@+id/isreturned_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Return:"
+                    android:textColor="#090909" />
             </LinearLayout>
 
             <LinearLayout
@@ -118,6 +125,14 @@
                     android:gravity="center"
                     android:text="@{flights.disponibles}"
                     android:textColor="#0C0C0C" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{ flights.getIsreturned() }"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/textView"

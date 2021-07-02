@@ -9,19 +9,72 @@
 android:layout_gravity="center_horizontal"
     android:background="@color/white" >
 
-    <SearchView
-        android:id="@+id/search_box"
-
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/Basic" >
+        android:layout_height="124dp"
+        android:background="@color/Basic"
+        android:orientation="vertical">
 
-    </SearchView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="261dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/spinner2"
+                    android:layout_width="265dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:entries="@array/countries1" />
+
+                <Spinner
+                    android:id="@+id/spinner3"
+                    android:layout_width="265dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:entries="@array/countries2" />
+
+                <Spinner
+                    android:id="@+id/spinner4"
+                    android:layout_width="265dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:entries="@array/others"
+                    android:prompt="@string/otros_prompt" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/filtrado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_rounded"
+                    android:gravity="center"
+                    android:text="Search" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/discount_submmit"
         android:layout_width="202dp"
-        android:layout_height="wrap_content"
+        android:layout_height="17dp"
         android:layout_marginStart="100dp"
         android:layout_marginTop="5dp"
         android:layout_weight="1"
@@ -32,7 +85,7 @@ android:layout_gravity="center_horizontal"
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/flight_recycle"
         android:layout_width="match_parent"
-        android:layout_height="652dp"
+        android:layout_height="582dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/flight_list" />
 

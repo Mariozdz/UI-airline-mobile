@@ -173,7 +173,9 @@ class HomeViewModel : ViewModel() {
                 jso.getString("outbounddate"),
                 jso.getInt("id"),
                 jso.getInt("discount"),
-                jso.getString("destino"))
+                jso.getString("destino"),
+                    jso.getInt("isreturned")
+                    )
             )
         }
         this.flights.postValue( fli.sortedBy { it.id } )

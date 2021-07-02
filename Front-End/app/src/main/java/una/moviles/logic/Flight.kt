@@ -15,8 +15,18 @@ class Flight (
     var outbounddate: String,
     var id: Int,
     var discount: Int,
-    var destino: String
-        ) : Serializable
+    var destino: String,
+    var isreturned: Int
+        ) : Serializable {
+
+
+                fun getIsreturned() : String
+                {
+                        if(isreturned != 0)
+                                return "Have return"
+                        return "Don´t have return"
+                }
+        }
 
 
 

@@ -64,6 +64,15 @@ class HomeFragment : Fragment() {
         lista = binding.flightRecycle
         lista.setHasFixedSize(true)
 
+
+        binding.filtrado.setOnClickListener{
+
+            homeViewModel.flights.value = homeViewModel.backup.value
+
+            filterFlifhts(binding.spinner2.selectedItem.toString() , binding.spinner3.selectedItem.toString(), binding.spinner4.selectedItem.toString())
+
+        }
+
        /* var bundle = requireActivity().intent.extras
 
         if (bundle != null) {
@@ -71,7 +80,7 @@ class HomeFragment : Fragment() {
             Log.d("user",us.cellphone)
         }*/
 
-        binding.searchBox.setOnQueryTextListener(object :
+        /*binding.searchBox.setOnQueryTextListener(object :
             android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -83,7 +92,9 @@ class HomeFragment : Fragment() {
                 BD.filterFlight(newText!!)
                 return false
             }
-        })
+        })*/
+
+
 
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
             override fun onMove(
@@ -161,6 +172,37 @@ class HomeFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun filterFlifhts(p1: String, p2: String, p3: String) {
+
+        Log.d("filtro",p1+" "+p2 + " " + p3)
+
+        var f1 = p1
+        var f2 = p2
+        var f3 = p3
+
+        if(p1 == "Origen")
+        {
+            f1 = ""
+        }
+
+        if(p2 == "Destino")
+        {
+            f2 = ""
+        }
+
+        if(p3 == "Origen")
+        {
+            f3 = ""
+        }
+
+        if (f1 == "" && f2 == "" && f3 =="")
+        {
+
+        }else {
+            homeViewModel.flights.value = homeViewModel.flights.value?.filter { f -> (f.origen.contains(p1) || f1 == "") && (f.destino.contains(p2) || f2 == "")  }
+        }
     }
 
 
