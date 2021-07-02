@@ -155,15 +155,15 @@ class HomeFragment : Fragment() {
 
 
             if(!discount) {
-                BD.flight.value = originalList
-                BD.filterByDiscount()
+                homeViewModel.flights.value = homeViewModel.backup.value
+                homeViewModel.flights.value = homeViewModel.flights.value?.filter { it.discount > 0 }
                 discount = true;
 
                 binding.discountSubmmit.setText("Click on me to see all")
             }
             else
             {
-                BD.flight.value = originalList
+                homeViewModel.flights.value = homeViewModel.backup.value
                 binding.discountSubmmit.setText("Click on me to see discounts")
                 discount = false
             }
@@ -182,6 +182,14 @@ class HomeFragment : Fragment() {
         var f2 = p2
         var f3 = p3
 
+        var f4 = 0
+
+        if (p3 == "Ida")
+        {
+            f4 = 0
+        }else
+            f4 = 1
+
         if(p1 == "Origen")
         {
             f1 = ""
@@ -192,7 +200,7 @@ class HomeFragment : Fragment() {
             f2 = ""
         }
 
-        if(p3 == "Origen")
+        if(p3 == "Otros")
         {
             f3 = ""
         }
@@ -201,7 +209,7 @@ class HomeFragment : Fragment() {
         {
 
         }else {
-            homeViewModel.flights.value = homeViewModel.flights.value?.filter { f -> (f.origen.contains(p1) || f1 == "") && (f.destino.contains(p2) || f2 == "")  }
+            homeViewModel.flights.value = homeViewModel.flights.value?.filter { f -> (f.origen.contains(p1) || f1 == "") && (f.destino.contains(p2) || f2 == "") && (f.isreturned == f4 || f3 == "") }
         }
     }
 

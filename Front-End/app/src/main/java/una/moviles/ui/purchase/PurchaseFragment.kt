@@ -123,6 +123,19 @@ class PurchaseFragment : Fragment() {
                     }
                 } else {
 
+                    var pur = purchaseViewModel.purchase.value!![viewHolder.adapterPosition]
+
+                    if (pur.isselected == true)
+                    {
+                        Toast.makeText(context,"Seats are selected",Toast.LENGTH_LONG).show()
+                        view!!.findNavController().navigate(R.id.nav_purchase)
+
+                    }else {
+
+                        val bundle = bundleOf("purchase" to pur)
+                        view!!.findNavController().navigate(R.id.seatsFragment, bundle)
+                    } // Puede joder
+
 
 
                 }
