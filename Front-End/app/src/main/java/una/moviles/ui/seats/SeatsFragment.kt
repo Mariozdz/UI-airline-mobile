@@ -79,6 +79,20 @@ class SeatsFragment : Fragment() {
             Log.d("Asientos", "Se llamaron a los ocupados")
         }
 
+        seatsViewModel.pruebalog.observe(viewLifecycleOwner){
+            if (seatsViewModel.pruebalog.value == true)
+            {
+                if (binding.layoutAsi.childCount > 0 )
+                {
+                    binding.layoutAsi.removeAllViews()
+                }
+
+                seatsViewModel.usedFields(bund.flightid)
+
+            }
+
+        }
+
         seatsViewModel.flag.observe(viewLifecycleOwner)
         {
             if (seatsViewModel.flag.value == true) {

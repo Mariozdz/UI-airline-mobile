@@ -39,7 +39,7 @@ class SeatsViewModel : ViewModel() {
     val inputChannel: Channel<String> = Channel(10)
     var dimension: MutableLiveData<PlaneType>
     var seats : MutableLiveData<List<Pair<Int,Int>>>
-
+    var pruebalog : MutableLiveData<Boolean>
 
 
     init {
@@ -48,6 +48,8 @@ class SeatsViewModel : ViewModel() {
         flag.value = false
         dimension = MutableLiveData()
         seats = MutableLiveData()
+        pruebalog = MutableLiveData()
+        pruebalog.value = false
     }
 
     fun open(coroutineScope: CoroutineScope, id:Int) {
@@ -149,7 +151,11 @@ class SeatsViewModel : ViewModel() {
                     }
 
                     if(res.contains("action")) {
-                        get_all()
+                        //get_all()
+                            Log.d("pruebaupdate", res)
+
+                        pruebalog.postValue(true)
+                       //
                     }
 
                 } catch (e: Throwable) {
@@ -286,7 +292,7 @@ class SeatsViewModel : ViewModel() {
         }
     }
 
-    private fun usedFields(id : Int){
+         fun usedFields(id : Int){
 
         viewModelScope.launch {
             val gson = Gson()
